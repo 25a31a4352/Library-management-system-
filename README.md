@@ -1,46 +1,67 @@
-# Library-management-system-
-A Library Management System is a software application used to manage and organize library operations efficiently. It helps in maintaining records of books, users, issue and return transactions. The system reduces manual work, saves time, improves accuracy, and allows easy searching, tracking, and management of library resources
-
-
-
-
-
 #include <stdio.h>
 #include <string.h>
 
 struct Book {
-char name[50];
-int quantity;
+    int id;
+    char name[50];
+    char author[50];
+    int quantity;
+    int taken;
+    int returned;
 };
 
 int main() {
-struct Book library[100];
-int n, i;
-int totalQuantity = 0;
+    struct Book library[100];
+    int n, i;
+    int totalBooks = 0;
+    int totalTaken = 0;
+    int totalReturned = 0;
 
-printf("Enter number of different books in library: ");
-scanf("%d", &n);
+    printf("Enter number of books: ");
+    scanf("%d", &n);
 
-for (i = 0; i < n; i++) {
-printf("\nEnter name of book %d: ", i + 1);
-scanf(" %[^\n]", library[i].name);
+    // Input details
+    for(i = 0; i < n; i++) {
+        library[i].id = i + 1;
 
-printf("Enter quantity of book %d: ", i + 1);    
-scanf("%d", &library[i].quantity);    
+        printf("\nEnter details for Book %d\n", i + 1);
 
-totalQuantity += library[i].quantity;
+        printf("Enter book name: ");
+        scanf(" %[^\n]", library[i].name);
 
+        printf("Enter author name: ");
+        scanf(" %[^\n]", library[i].author);
+
+        printf("Enter quantity: ");
+        scanf("%d", &library[i].quantity);
+
+        printf("Enter number of books taken: ");
+        scanf("%d", &library[i].taken);
+
+        printf("Enter number of books returned: ");
+        scanf("%d", &library[i].returned);
+
+        totalBooks += library[i].quantity;
+        totalTaken += library[i].taken;
+        totalReturned += library[i].returned;
+    }
+
+    // Output section (SAME FORMAT)
+    printf("\n\n===== LIBRARY DETAILS =====\n");
+
+    printf("Total number of books: %d\n", totalBooks);
+    printf("Total books taken    : %d\n", totalTaken);
+    printf("Total books returned : %d\n\n", totalReturned);
+
+    for(i = 0; i < n; i++) {
+        printf("Book %d Details:\n", library[i].id);
+        printf("Name      : %s\n", library[i].name);
+        printf("Author    : %s\n", library[i].author);
+        printf("Quantity  : %d\n", library[i].quantity);
+        printf("Taken     : %d\n", library[i].taken);
+        printf("Returned  : %d\n", library[i].returned);
+        printf("-----------------------------\n");
+    }
+
+    return 0;
 }
-
-printf("\n--- Library Book Details ---\n");
-for (i = 0; i < n; i++) {
-printf("Book Name: %s | Quantity: %d\n",
-library[i].name, library[i].quantity);
-}
-
-printf("\nTotal number of different books: %d\n", n);
-printf("Total quantity of all books in library: %d\n", totalQuantity);
-
-return 0;
-
-}.
